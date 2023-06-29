@@ -196,14 +196,13 @@ const addEmployee = () => {
     });
 };
 
-// Function to update an eployee's role (I honestly can't take credit for this part, I got so much help)
+// Function to update an eployee's role
 const employeeUpdate = () => {
   connection.query(
     "SELECT id, first_name, last_name FROM employee",
     function (err, employee) {
       if (err) {
-        console.error(err);
-        return;
+        throw (err);
       }
 
       inquirer
@@ -223,8 +222,7 @@ const employeeUpdate = () => {
 
           connection.query("SELECT id, title FROM role", function (err, role) {
             if (err) {
-              console.error(err);
-              return;
+              throw (err);
             }
 
             inquirer
@@ -247,8 +245,7 @@ const employeeUpdate = () => {
                   [newRoleId, selectedEmployeeId],
                   function (err, res) {
                     if (err) {
-                      console.error(err);
-                      return;
+                      throw (err);
                     }
                     console.log("Employee role updated successfully!");
                     startApp();
